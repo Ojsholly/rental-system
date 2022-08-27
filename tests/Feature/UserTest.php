@@ -16,9 +16,10 @@ class UserTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+        $this->seed();
     }
 
-    public function user(array $attributes)
+    public function user(array $attributes = [])
     {
         return User::factory()->create($attributes);
     }
@@ -55,8 +56,6 @@ class UserTest extends TestCase
 
     public function testUserCreation()
     {
-        $password = Str::random(10);
-
         $usersCount = User::count();
 
         $data = $this->userData();
@@ -73,5 +72,44 @@ class UserTest extends TestCase
             'phone' => data_get($data, 'phone'),
             'address' => data_get($data, 'address')
         ]);
+    }
+
+    public function testUserRetrievalWithWrongId()
+    {
+        $this->getJson(route('admin.users.show', ['user' => Str::uuid()]))
+                ->assertNotFound()
+                ->assertJsonStructure(['status', 'message']);
+    }
+
+    public function testUserServiceGetReturnsUser()
+    {
+        $user_id = User::factory()->create()->uuid;
+
+        $user = (new UserService())->getUser($user_id);
+
+        $this->assertInstanceOf(User::class, $user);
+    }
+
+    public function testUserRetrieval()
+    {
+        $user = $this->user();
+
+        $this->getJson(route('admin.users.show', ['user' => $user->uuid]))
+                ->assertOk()
+                ->assertJsonStructure(['status', 'message', 'data'])
+                ->assertJsonFragment(['status' => 'success', 'message' => 'User retrieved successfully.'])
+                ->assertJson([
+                    'data' => [
+                        'id' => $user->id,
+                        'uuid' => $user->uuid,
+                        'name' => $user->name,
+                        'email' => $user->email,
+                        'phone' => $user->phone,
+                        'address' => $user->address,
+                        'created_at' => $user->created_at->toDayDateTimeString(),
+                        'updated_at' => $user->updated_at->diffForHumans(),
+                        'deleted_at' => $user->deleted_at?->toDayDateTimeString(),
+                    ]
+                ]);
     }
 }

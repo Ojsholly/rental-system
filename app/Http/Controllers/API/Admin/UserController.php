@@ -7,6 +7,7 @@ use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserResourceCollection;
 use App\Services\User\UserService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -62,12 +63,23 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param string $id
+     * @return JsonResponse
      */
-    public function show($id)
+    public function show(string $id): JsonResponse
     {
+        try {
+            $user = $this->userService->getUser($id);
+        } catch (Throwable $exception) {
+            if($exception instanceof ModelNotFoundException) {
+                return response()->error($exception->getMessage(), $exception->getCode());
+            }
+            report($exception);
 
+            return response()->error('Error fetching user.', ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        return response()->success(new UserResource($user), 'User retrieved successfully.', ResponseAlias::HTTP_OK);
     }
 
     /**
@@ -75,7 +87,7 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -86,7 +98,7 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
