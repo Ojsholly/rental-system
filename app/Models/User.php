@@ -52,7 +52,7 @@ class User extends Authenticatable
         return app(Pipeline::class)
             ->send(User::query())
             ->through([
-                Sort::class
+                Sort::class,
             ])->thenReturn();
     }
 }

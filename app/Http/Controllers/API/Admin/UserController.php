@@ -10,7 +10,6 @@ use App\Http\Resources\User\UserResourceCollection;
 use App\Services\User\UserService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -40,13 +39,13 @@ class UserController extends Controller
             return response()->error('Error fetching users.', ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return response()->success(new UserResourceCollection($users), "Users retrieved successfully.", ResponseAlias::HTTP_OK);
+        return response()->success(new UserResourceCollection($users), 'Users retrieved successfully.', ResponseAlias::HTTP_OK);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateUserRequest $request
+     * @param  CreateUserRequest  $request
      * @return JsonResponse
      */
     public function store(CreateUserRequest $request): JsonResponse
@@ -65,7 +64,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param string $id
+     * @param  string  $id
      * @return JsonResponse
      */
     public function show(string $id): JsonResponse
@@ -73,7 +72,7 @@ class UserController extends Controller
         try {
             $user = $this->userService->getUser($id);
         } catch (Throwable $exception) {
-            if($exception instanceof ModelNotFoundException) {
+            if ($exception instanceof ModelNotFoundException) {
                 return response()->error($exception->getMessage(), $exception->getCode());
             }
             report($exception);
@@ -87,8 +86,8 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateUserRequest $request
-     * @param string $id
+     * @param  UpdateUserRequest  $request
+     * @param  string  $id
      * @return JsonResponse
      */
     public function update(UpdateUserRequest $request, string $id): JsonResponse
@@ -107,10 +106,10 @@ class UserController extends Controller
             }
             report($exception);
 
-            return response()->error("Error updating user account.", ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->error('Error updating user account.', ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return response()->success(new UserResource($user), "User account updated successfully.");
+        return response()->success(new UserResource($user), 'User account updated successfully.');
     }
 
     /**

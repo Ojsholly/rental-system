@@ -2,9 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\Models\User;
-use App\Services\User\UserService;
-use Illuminate\Support\Str;
 use PHPUnit\Framework\TestCase;
 
 class ExampleTest extends TestCase

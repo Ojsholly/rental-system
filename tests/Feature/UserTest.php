@@ -70,7 +70,7 @@ class UserTest extends TestCase
             'name' => data_get($data, 'name'),
             'email' => data_get($data, 'email'),
             'phone' => data_get($data, 'phone'),
-            'address' => data_get($data, 'address')
+            'address' => data_get($data, 'address'),
         ]);
     }
 
@@ -109,7 +109,7 @@ class UserTest extends TestCase
                         'created_at' => $user->created_at->toDayDateTimeString(),
                         'updated_at' => $user->updated_at->diffForHumans(),
                         'deleted_at' => $user->deleted_at?->toDayDateTimeString(),
-                    ]
+                    ],
                 ]);
     }
 

@@ -26,7 +26,7 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => ['sometimes', 'nullable', 'string', 'max:255'],
-            'email' => ['sometimes', 'nullable', 'string', 'email', 'max:255', Rule::unique('users','email')->ignore(request()->route('user'), 'uuid')],
+            'email' => ['sometimes', 'nullable', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore(request()->route('user'), 'uuid')],
             'phone' => ['sometimes', 'nullable', 'string', 'max:255', Rule::unique('users', 'phone')->ignore(request()->route('user'), 'uuid')],
             'address' => ['sometimes', 'nullable', 'string'],
             'password' => ['sometimes', 'nullable', 'confirmed'],
