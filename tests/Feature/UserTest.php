@@ -5,13 +5,12 @@ namespace Tests\Feature;
 use App\Models\User;
 use App\Services\User\UserService;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-    use DatabaseMigrations, RefreshDatabase;
+    use DatabaseMigrations;
 
     public function setUp(): void
     {
