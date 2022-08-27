@@ -24,6 +24,7 @@ jobs:
       - name: Install composer dependencies
         run: |
           composer install
+          composer fix-styles
 
       - name: Prepare Laravel Application
         run: |
