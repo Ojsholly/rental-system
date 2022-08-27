@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserResourceCollection;
 use App\Services\User\UserService;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Throwable;
 
@@ -85,13 +87,30 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return Response
+     * @param UpdateUserRequest $request
+     * @param string $id
+     * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, string $id): JsonResponse
     {
-        //
+        try {
+            $data = $request->only('name', 'email', 'phone', 'address');
+
+            if ($request->has('password')) {
+                $data['password'] = Hash::make($request->password);
+            }
+
+            $user = $this->userService->updateUser($data, $id);
+        } catch (Throwable $exception) {
+            if ($exception instanceof ModelNotFoundException) {
+                return response()->error($exception->getMessage(), $exception->getCode());
+            }
+            report($exception);
+
+            return response()->error("Error updating user account.", ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        return response()->success(new UserResource($user), "User account updated successfully.");
     }
 
     /**

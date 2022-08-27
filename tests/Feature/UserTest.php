@@ -112,4 +112,16 @@ class UserTest extends TestCase
                     ]
                 ]);
     }
+
+    public function testUserUpdate()
+    {
+        $user = $this->user();
+
+        $data = $this->userData();
+
+        $this->putJson(route('admin.users.update', ['user' => $user->uuid]), $data)
+                ->assertOk()
+                ->assertJsonStructure(['status', 'message', 'data'])
+                ->assertJsonFragment(['status' => 'success', 'message' => 'User account updated successfully.']);
+    }
 }
