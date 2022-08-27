@@ -119,8 +119,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(string $id)
     {
-        //
+        try {
+            $delete = $this->userService->deleteUser($id);
+        } catch (Throwable $exception) {
+            if ($exception instanceof ModelNotFoundException) {
+                return response()->error($exception->getMessage(), $exception->getCode());
+            }
+            report($exception);
+
+            return response()->error('Error deleting user.', ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        return match ($delete) {
+            true => response()->success([], 'User account deleted successfully.', ResponseAlias::HTTP_OK),
+            false => response()->error('Error deleting user.', ResponseAlias::HTTP_BAD_REQUEST)
+        };
     }
 }

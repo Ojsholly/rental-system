@@ -113,6 +113,16 @@ class UserTest extends TestCase
                 ]);
     }
 
+    public function testUserServiceUpdateReturnsUser()
+    {
+        $user = $this->user();
+        $data = $this->userData();
+
+        $user = (new UserService())->updateUser($data, $user->uuid);
+
+        $this->assertInstanceOf(User::class, $user);
+    }
+
     public function testUserUpdate()
     {
         $user = $this->user();
@@ -123,5 +133,31 @@ class UserTest extends TestCase
                 ->assertOk()
                 ->assertJsonStructure(['status', 'message', 'data'])
                 ->assertJsonFragment(['status' => 'success', 'message' => 'User account updated successfully.']);
+    }
+
+    public function testUserDeletionWithWrongId()
+    {
+        $this->deleteJson(route('admin.users.destroy', ['user' => Str::uuid()]))
+                ->assertNotFound()
+                ->assertJsonStructure(['status', 'message']);
+    }
+
+    public function testUserServiceDeleteReturnsBool()
+    {
+        $user_id = User::factory()->create()->uuid;
+
+        $this->assertTrue((new UserService())->deleteUser($user_id));
+    }
+
+    public function testUserDeletion()
+    {
+        $user = $this->user();
+
+        $this->deleteJson(route('admin.users.destroy', ['user' => $user->uuid]))
+                ->assertOk()
+                ->assertJsonStructure(['status', 'message', 'data'])
+                ->assertJsonFragment(['status' => 'success', 'message' => 'User account deleted successfully.']);
+
+        $this->assertSoftDeleted($user);
     }
 }
