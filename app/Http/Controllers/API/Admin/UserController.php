@@ -32,7 +32,7 @@ class UserController extends Controller
     public function index(): JsonResponse
     {
         try {
-            $users = $this->userService->getUsers();
+            $users = $this->userService->getUsers([], [], request()->query());
         } catch (Throwable $exception) {
             report($exception);
 
