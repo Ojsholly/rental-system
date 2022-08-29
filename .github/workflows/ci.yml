@@ -30,7 +30,6 @@ jobs:
         run: |
           cp .env.ci .env
           php artisan key:generate
-          php artisan optimize:clear
           php artisan optimize
           php artisan migrate --force
             php artisan db:seed --force

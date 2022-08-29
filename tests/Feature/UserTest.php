@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\User;
 use App\Services\User\UserService;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -158,5 +159,26 @@ class UserTest extends TestCase
                 ->assertJsonFragment(['status' => 'success', 'message' => 'User account deleted successfully.']);
 
         $this->assertSoftDeleted($user);
+    }
+
+    public function testUserServiceGetAllReturnsPaginatedResponse()
+    {
+        $perPage = 10;
+
+        $users = (new UserService())->getUsers([], [], compact('perPage'));
+
+        $this->assertInstanceOf(LengthAwarePaginator::class, $users);
+    }
+
+    public function testUserIndexPagination()
+    {
+        $perPage = 10;
+
+        $this->getJson(route('admin.users.index', compact('perPage')))
+                ->assertOk()
+                ->assertJsonStructure(['status', 'message', 'data' => ['meta', 'users']])
+                ->assertSee(['per_page' => $perPage])
+                ->assertJsonFragment(['status' => 'success', 'message' => 'Users retrieved successfully.'])
+                ->assertJsonCount($perPage, 'data.users');
     }
 }

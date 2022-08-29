@@ -4,6 +4,7 @@ namespace App\Services\User;
 
 use App\Models\User;
 use App\Services\Service;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
@@ -37,7 +38,7 @@ class UserService extends Service
     public function getUsers(array $params = [], array $relations = [], array $pagination = []): mixed
     {
         return User::getUsers()->with($relations)->where($params)
-            ->paginate(data_get($pagination, 'perPage', 50));
+            ->paginate(data_get($pagination, 'perPage', 100));
     }
 
     /**
@@ -99,5 +100,15 @@ class UserService extends Service
         Cache::forget('user.'.$uuid);
 
         return $user->trashed();
+    }
+
+    /**
+     * @param  string  $searchTerm
+     * @param  array  $pagination
+     * @return LengthAwarePaginator
+     */
+    public function search(string $searchTerm, array $pagination = []): LengthAwarePaginator
+    {
+        return User::search($searchTerm)->paginate(data_get($pagination, 'perPage', 100));
     }
 }

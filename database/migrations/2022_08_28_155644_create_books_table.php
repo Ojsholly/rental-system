@@ -13,20 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->uuid();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('phone')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->text('address');
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('title')->unique();
+            $table->string('author');
+            $table->string('isbn');
+            $table->text('description');
+            $table->string('publisher');
+            $table->date('published_on');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['id', 'uuid', 'deleted_at']);
+            $table->index(['uuid', 'title', 'author', 'publisher']);
         });
     }
 
@@ -37,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('books');
     }
 };
