@@ -58,7 +58,7 @@ class BookController extends Controller
             return response()->error("An error occurred while creating book.", ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return response()->success(new BookResource($book), "Book created successfully.");
+        return response()->success(new BookResource($book), "Book created successfully.", ResponseAlias::HTTP_CREATED);
     }
 
     /**
@@ -115,7 +115,7 @@ class BookController extends Controller
     public function destroy(string $id): JsonResponse
     {
         try {
-            $this->bookService->deleteBook($id);
+            $book = $this->bookService->deleteBook($id);
         } catch (Throwable $exception) {
             if ($exception instanceof ModelNotFoundException) {
                 return response()->error("Requested book not found.", $exception->getCode());
@@ -126,6 +126,9 @@ class BookController extends Controller
             return response()->error("An error occurred while deleting book.", ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return response()->success([], "Book deleted successfully.");
-    }
+        return match ($book) {
+            true => response()->success(null, "Book deleted successfully."),
+            false => response()->error("Book not found.", ResponseAlias::HTTP_NOT_FOUND),
+        };
+}
 }
