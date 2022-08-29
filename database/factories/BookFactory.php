@@ -22,7 +22,7 @@ class BookFactory extends Factory
             'isbn' => fake()->isbn10(),
             'description' => fake()->realText(),
             'publisher' => fake()->company(),
-            'published_on' => fake()->dateTimeThisCentury()
+            'published_on' => fake()->dateTimeThisCentury(),
         ];
     }
 }

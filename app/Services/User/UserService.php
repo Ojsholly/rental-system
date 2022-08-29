@@ -103,8 +103,8 @@ class UserService extends Service
     }
 
     /**
-     * @param string $searchTerm
-     * @param array $pagination
+     * @param  string  $searchTerm
+     * @param  array  $pagination
      * @return LengthAwarePaginator
      */
     public function search(string $searchTerm, array $pagination = []): LengthAwarePaginator

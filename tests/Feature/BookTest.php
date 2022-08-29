@@ -6,8 +6,6 @@ use App\Models\Book;
 use App\Services\Book\BookService;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -187,7 +185,13 @@ class BookTest extends TestCase
     {
         $this->getJson(route('admin.books.index'))
                 ->assertOk()
-                ->assertJsonStructure(['status', 'message', 'data' => ['*' => ['id', 'uuid', 'title', 'author', 'description', 'isbn', 'publisher', 'published_on', 'created_at', 'updated_at', 'deleted_at']]]);
+                ->assertJsonStructure(['status', 'message', 'data' => [
+                    'meta', 'books' => [
+                        '*' => [
+                            'id', 'uuid', 'title', 'author', 'description', 'isbn', 'publisher', 'published_on', 'created_at', 'updated_at', 'deleted_at',
+                        ],
+                    ],
+                ]]);
     }
 
     public function testGetAllReturnsPaginatedBooks()

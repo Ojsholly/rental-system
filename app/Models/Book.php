@@ -14,11 +14,11 @@ class Book extends Model
     use HasFactory, HasUUID, Searchable;
 
     protected $fillable = [
-      'title', 'author', 'isbn', 'description', 'publisher', 'published_on'
+        'title', 'author', 'isbn', 'description', 'publisher', 'published_on',
     ];
 
     protected $casts = [
-      'published_on' => 'date'
+        'published_on' => 'date',
     ];
 
     public function toSearchableArray(): array
@@ -31,7 +31,7 @@ class Book extends Model
         return app(Pipeline::class)
                 ->send(Book::query())
                 ->through([
-                    Sort::class
+                    Sort::class,
                 ])->thenReturn();
     }
 }

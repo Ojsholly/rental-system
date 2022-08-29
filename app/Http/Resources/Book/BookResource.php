@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Book;
 
-use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -27,7 +26,7 @@ class BookResource extends JsonResource
             'published_on' => $this->published_on->toFormattedDateString(),
             'created_at' => $this->created_at->toDayDateTimeString(),
             'updated_at' => $this->updated_at->diffForHumans(),
-            'deleted_at' => $this->deleted_at?->toDayDateTimeString()
+            'deleted_at' => $this->deleted_at?->toDayDateTimeString(),
         ];
     }
 }

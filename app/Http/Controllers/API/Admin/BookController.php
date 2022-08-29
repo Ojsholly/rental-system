@@ -10,8 +10,6 @@ use App\Http\Resources\Book\BookResourceCollection;
 use App\Services\Book\BookService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Throwable;
 
@@ -36,16 +34,16 @@ class BookController extends Controller
         } catch (Throwable $exception) {
             report($exception);
 
-            return response()->error("An error occurred while fetching books.", ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->error('An error occurred while fetching books.', ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return response()->success(new BookResourceCollection($books), "Books fetched successfully.");
+        return response()->success(new BookResourceCollection($books), 'Books fetched successfully.');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateBookRequest $request
+     * @param  CreateBookRequest  $request
      * @return JsonResponse
      */
     public function store(CreateBookRequest $request): JsonResponse
@@ -55,16 +53,16 @@ class BookController extends Controller
         } catch (Throwable $exception) {
             report($exception);
 
-            return response()->error("An error occurred while creating book.", ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->error('An error occurred while creating book.', ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return response()->success(new BookResource($book), "Book created successfully.", ResponseAlias::HTTP_CREATED);
+        return response()->success(new BookResource($book), 'Book created successfully.', ResponseAlias::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param string $id
+     * @param  string  $id
      * @return JsonResponse
      */
     public function show(string $id): JsonResponse
@@ -73,21 +71,21 @@ class BookController extends Controller
             $book = $this->bookService->getBook($id);
         } catch (Throwable $exception) {
             if ($exception instanceof ModelNotFoundException) {
-                return response()->error("Requested book not found.", $exception->getCode());
+                return response()->error('Requested book not found.', $exception->getCode());
             }
             report($exception);
 
-            return response()->error("An error occurred while fetching book.", ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->error('An error occurred while fetching book.', ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return response()->success(new BookResource($book), "Book fetched successfully.");
+        return response()->success(new BookResource($book), 'Book fetched successfully.');
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateBookRequest $request
-     * @param string $id
+     * @param  UpdateBookRequest  $request
+     * @param  string  $id
      * @return JsonResponse
      */
     public function update(UpdateBookRequest $request, string $id): JsonResponse
@@ -96,20 +94,20 @@ class BookController extends Controller
             $book = $this->bookService->updateBook(array_filter($request->validated()), $id);
         } catch (Throwable $exception) {
             if ($exception instanceof ModelNotFoundException) {
-                return response()->error("Requested book not found.", $exception->getCode());
+                return response()->error('Requested book not found.', $exception->getCode());
             }
             report($exception);
 
-            return response()->error("An error occurred while updating book.", ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->error('An error occurred while updating book.', ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return response()->success(new BookResource($book), "Book updated successfully.");
+        return response()->success(new BookResource($book), 'Book updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param string $id
+     * @param  string  $id
      * @return JsonResponse
      */
     public function destroy(string $id): JsonResponse
@@ -118,17 +116,17 @@ class BookController extends Controller
             $book = $this->bookService->deleteBook($id);
         } catch (Throwable $exception) {
             if ($exception instanceof ModelNotFoundException) {
-                return response()->error("Requested book not found.", $exception->getCode());
+                return response()->error('Requested book not found.', $exception->getCode());
             }
 
             report($exception);
 
-            return response()->error("An error occurred while deleting book.", ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->error('An error occurred while deleting book.', ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         return match ($book) {
-            true => response()->success(null, "Book deleted successfully."),
-            false => response()->error("Book not found.", ResponseAlias::HTTP_NOT_FOUND),
+            true => response()->success(null, 'Book deleted successfully.'),
+            false => response()->error('Book not found.', ResponseAlias::HTTP_NOT_FOUND),
         };
-}
+    }
 }

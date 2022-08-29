@@ -3,7 +3,6 @@
 namespace App\Http\Resources\User;
 
 use App\Traits\PaginationTrait;
-use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 

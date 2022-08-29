@@ -12,7 +12,7 @@ use Throwable;
 class BookService
 {
     /**
-     * @param array $data
+     * @param  array  $data
      * @return mixed
      */
     public function createBook(array $data): mixed
@@ -21,25 +21,26 @@ class BookService
     }
 
     /**
-     * @param string $uuid
+     * @param  string  $uuid
      * @return mixed
+     *
      * @throws Throwable
      */
     public function getBook(string $uuid): mixed
     {
-        return Cache::remember('book' . $uuid, now()->addDays(3), function () use ($uuid){
+        return Cache::remember('book'.$uuid, now()->addDays(3), function () use ($uuid) {
             $book = Book::findByUuid($uuid);
 
-            throw_if(!$book, new ModelNotFoundException("Requested book not found.", ResponseAlias::HTTP_NOT_FOUND));
+            throw_if(! $book, new ModelNotFoundException('Requested book not found.', ResponseAlias::HTTP_NOT_FOUND));
 
             return $book;
         });
     }
 
     /**
-     * @param array $params
-     * @param array $relations
-     * @param array $pagination
+     * @param  array  $params
+     * @param  array  $relations
+     * @param  array  $pagination
      * @return mixed
      */
     public function getBooks(array $params = [], array $relations = [], array $pagination = []): mixed
@@ -49,9 +50,10 @@ class BookService
     }
 
     /**
-     * @param array $data
-     * @param string $uuid
+     * @param  array  $data
+     * @param  string  $uuid
      * @return mixed
+     *
      * @throws Throwable
      */
     public function updateBook(array $data, string $uuid): mixed
@@ -62,14 +64,15 @@ class BookService
 
         $book->refresh();
 
-        Cache::put('book' . $uuid, $book, now()->addDays(3));
+        Cache::put('book'.$uuid, $book, now()->addDays(3));
 
         return $book;
     }
 
     /**
-     * @param string $uuid
+     * @param  string  $uuid
      * @return bool
+     *
      * @throws Throwable
      */
     public function deleteBook(string $uuid): bool
@@ -78,14 +81,14 @@ class BookService
 
         $book->delete();
 
-        Cache::forget('book' . $uuid);
+        Cache::forget('book'.$uuid);
 
         return true;
     }
 
     /**
-     * @param string $searchTerm
-     * @param array $pagination
+     * @param  string  $searchTerm
+     * @param  array  $pagination
      * @return LengthAwarePaginator
      */
     public function search(string $searchTerm, array $pagination = []): LengthAwarePaginator
