@@ -21,7 +21,6 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('serial_number')->nullable();
             $table->string('model_number')->nullable();
-            $table->string('image')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\Admin\BookController;
+use App\Http\Controllers\API\Admin\EquipmentController;
 use App\Http\Controllers\API\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,5 +20,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::apiResources([
         'users' => UserController::class,
         'books' => BookController::class,
+        'equipments' => EquipmentController::class,
     ]);
 });

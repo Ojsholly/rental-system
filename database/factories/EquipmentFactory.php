@@ -21,9 +21,8 @@ class EquipmentFactory extends Factory
             'name' => fake()->words(3, true),
             'manufacturer' => fake()->company(),
             'description' => fake()->realText(),
-            'serial_number' => Str::random(mt_rand(10, 20)),
+            'serial_number' => Str::random(mt_rand(6, 15)).fake()->numberBetween(1000, 9999),
             'model_number' => Str::random(mt_rand(10, 20)),
-            'image' => fake()->imageUrl(),
         ];
     }
 }
