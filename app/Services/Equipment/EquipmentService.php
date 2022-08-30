@@ -77,7 +77,7 @@ class EquipmentService extends Service
 
         Cache::forget('equipment'.$uuid);
 
-        return $equipment;
+        return $equipment->trashed();
     }
 
     /**
