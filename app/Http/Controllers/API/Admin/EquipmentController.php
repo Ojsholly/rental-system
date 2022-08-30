@@ -10,8 +10,6 @@ use App\Http\Resources\Equipment\EquipmentResourceCollection;
 use App\Services\Equipment\EquipmentService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Throwable;
 
@@ -45,7 +43,7 @@ class EquipmentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateEquipmentRequest $request
+     * @param  CreateEquipmentRequest  $request
      * @return JsonResponse
      */
     public function store(CreateEquipmentRequest $request): JsonResponse
@@ -64,7 +62,7 @@ class EquipmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param string $id
+     * @param  string  $id
      * @return JsonResponse
      */
     public function show(string $id): JsonResponse
@@ -87,8 +85,8 @@ class EquipmentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateEquipmentRequest $request
-     * @param string $id
+     * @param  UpdateEquipmentRequest  $request
+     * @param  string  $id
      * @return JsonResponse
      */
     public function update(UpdateEquipmentRequest $request, string $id): JsonResponse
@@ -110,7 +108,7 @@ class EquipmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param string $id
+     * @param  string  $id
      * @return JsonResponse
      */
     public function destroy(string $id): JsonResponse

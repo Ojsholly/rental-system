@@ -25,7 +25,7 @@ class Equipment extends Model
         return app(Pipeline::class)
             ->send(Equipment::query())
             ->through([
-                Sort::class
+                Sort::class,
             ])->thenReturn();
     }
 

@@ -5,7 +5,6 @@ namespace App\Services\Equipment;
 use App\Models\Equipment;
 use App\Services\Service;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Response;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -13,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 class EquipmentService extends Service
 {
     /**
-     * @param array $data
+     * @param  array  $data
      * @return mixed
      */
     public function create(array $data): mixed
@@ -22,7 +21,7 @@ class EquipmentService extends Service
     }
 
     /**
-     * @param string $uuid
+     * @param  string  $uuid
      * @return mixed
      */
     public function getEquipment(string $uuid)
@@ -37,9 +36,9 @@ class EquipmentService extends Service
     }
 
     /**
-     * @param array $params
-     * @param array $relations
-     * @param array $pagination
+     * @param  array  $params
+     * @param  array  $relations
+     * @param  array  $pagination
      * @return mixed
      */
     public function getEquipments(array $params = [], array $relations = [], array $pagination = []): mixed
@@ -49,8 +48,8 @@ class EquipmentService extends Service
     }
 
     /**
-     * @param array $data
-     * @param string $uuid
+     * @param  array  $data
+     * @param  string  $uuid
      * @return mixed
      */
     public function updateEquipment(array $data, string $uuid): mixed
@@ -67,7 +66,7 @@ class EquipmentService extends Service
     }
 
     /**
-     * @param string $uuid
+     * @param  string  $uuid
      * @return mixed
      */
     public function deleteEquipment(string $uuid): mixed
@@ -82,8 +81,8 @@ class EquipmentService extends Service
     }
 
     /**
-     * @param string $searchTerm
-     * @param array $pagination
+     * @param  string  $searchTerm
+     * @param  array  $pagination
      * @return LengthAwarePaginator
      */
     public function search(string $searchTerm, array $pagination = []): LengthAwarePaginator

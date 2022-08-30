@@ -29,7 +29,7 @@ class UpdateEquipmentRequest extends FormRequest
             'manufacturer' => ['sometimes', 'nullable', 'string', 'max:255'],
             'description' => ['sometimes', 'nullable', 'string'],
             'serial_number' => ['sometimes', 'nullable', 'string', 'max:255',
-                Rule::unique('equipments', 'serial_number')->ignore(request()->route('equipment'), 'uuid')],
+                Rule::unique('equipments', 'serial_number')->ignore(request()->route('equipment'), 'uuid'), ],
             'model_number' => ['sometimes', 'nullable', 'string', 'max:255'],
         ];
     }
