@@ -24,12 +24,12 @@ jobs:
       - name: Install composer dependencies
         run: |
           composer install
+          composer fix-styles
 
       - name: Prepare Laravel Application
         run: |
           cp .env.ci .env
           php artisan key:generate
-          php artisan optimize:clear
           php artisan optimize
           php artisan migrate --force
             php artisan db:seed --force
