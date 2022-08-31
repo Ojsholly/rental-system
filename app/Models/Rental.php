@@ -49,5 +49,4 @@ class Rental extends Model
     {
         return $query->whereNotNull('equipment_id')->whereNotNull('equipment_returned_at');
     }
-
 }

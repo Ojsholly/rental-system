@@ -19,7 +19,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'email' => fake()->unique(true)->safeEmail(),
+            'email' => Str::lower(Str::random()).fake()->unique(true)->safeEmail(),
             'phone' => fake()->unique(true)->phoneNumber(),
             'email_verified_at' => now(),
             'address' => fake()->address(),
