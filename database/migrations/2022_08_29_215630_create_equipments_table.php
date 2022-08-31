@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('model_number')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['uuid', 'name', 'manufacturer', 'serial_number']);
         });
     }
 

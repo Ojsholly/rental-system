@@ -1,0 +1,18 @@
+[2022-08-31 14:42:45] local.ERROR: There are no commands defined in the "db:migrate" namespace.
+
+Did you mean one of these?
+    db
+    migrate {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"db:migrate\" namespace.
+
+Did you mean one of these?
+    db
+    migrate at /opt/lampp/htdocs/applications/rental-system/vendor/symfony/console/Application.php:622)
+[stacktrace]
+#0 /opt/lampp/htdocs/applications/rental-system/vendor/symfony/console/Application.php(673): Symfony\\Component\\Console\\Application->findNamespace('db:migrate')
+#1 /opt/lampp/htdocs/applications/rental-system/vendor/symfony/console/Application.php(259): Symfony\\Component\\Console\\Application->find('db:migrate:fres...')
+#2 /opt/lampp/htdocs/applications/rental-system/vendor/symfony/console/Application.php(171): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /opt/lampp/htdocs/applications/rental-system/vendor/laravel/framework/src/Illuminate/Console/Application.php(102): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /opt/lampp/htdocs/applications/rental-system/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(129): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 /opt/lampp/htdocs/applications/rental-system/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#6 {main}
+"} 

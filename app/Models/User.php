@@ -5,6 +5,7 @@ namespace App\Models;
 use App\QueryFilters\Sort;
 use BinaryCabin\LaravelUUID\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -59,6 +60,16 @@ class User extends Authenticatable
 
     public function toSearchableArray(): array
     {
-        return ['name', 'email', 'phone', 'address'];
+        return [
+            'name' => $this->name,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'address' => $this->address,
+        ];
+    }
+
+    public function rentals(): HasMany
+    {
+        return $this->hasMany(Rental::class, 'user_id', 'uuid');
     }
 }
