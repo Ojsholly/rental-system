@@ -2,7 +2,7 @@
 
 ## Project Description
 
-The project is a collection of endpoints for a Book and Equipment Rental System.  A postman collection for the endpoints can be found at https://documenter.getpostman.com/view/22569385/VUr1JDGK
+The project is a collection of endpoints for a Book and Equipment Rental System.  A postman collection for the endpoints can be found at https://documenter.getpostman.com/view/22569385/VUr1JDGK. A postman collection dump is also available in the root of the project.
 
 ## Project Setup
 
