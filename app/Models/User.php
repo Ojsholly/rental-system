@@ -60,7 +60,12 @@ class User extends Authenticatable
 
     public function toSearchableArray(): array
     {
-        return ['name', 'email', 'phone', 'address'];
+        return [
+            'name' => $this->name,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'address' => $this->address,
+        ];
     }
 
     public function rentals(): HasMany

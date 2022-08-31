@@ -32,7 +32,13 @@ class Equipment extends Model
 
     public function toSearchableArray(): array
     {
-        return ['name', 'manufacturer', 'description', 'serial_number', 'model_number'];
+        return [
+            'name' => $this->name,
+            'manufacturer' => $this->manufacturer,
+            'description' => $this->description,
+            'serial_number' => $this->serial_number,
+            'model_number' => $this->model_number,
+        ];
     }
 
     public function rentals(): HasMany

@@ -24,7 +24,13 @@ class Book extends Model
 
     public function toSearchableArray(): array
     {
-        return ['title', 'author', 'isbn', 'description', 'publisher'];
+        return [
+            'title' => $this->title,
+            'author' => $this->author,
+            'isbn' => $this->isbn,
+            'description' => $this->description,
+            'publisher' => $this->publisher,
+        ];
     }
 
     public static function getBooks()

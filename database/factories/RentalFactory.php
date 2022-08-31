@@ -27,6 +27,8 @@ class RentalFactory extends Factory
             'price' => $this->faker->randomFloat(2, 0, 100),
             'book_returned_at' => null,
             'equipment_returned_at' => null,
+            'created_at' => $this->faker->dateTimeBetween('-1 year', 'today')->format('Y-m-d H:i:s'),
+            'updated_at' => $this->faker->dateTimeBetween('-1 year', 'today')->format('Y-m-d H:i:s'),
         ];
     }
 
@@ -54,7 +56,7 @@ class RentalFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'book_returned_at' => $this->faker->dateTimeBetween('-1 week', '+3 months')->format('Y-m-d'),
+                'book_returned_at' => $this->faker->dateTimeBetween('-1 year', 'today')->format('Y-m-d'),
                 'equipment_returned_at' => null,
             ];
         });
@@ -64,7 +66,7 @@ class RentalFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'equipment_returned_at' => $this->faker->dateTimeBetween('-1 week', '+3 months')->format('Y-m-d'),
+                'equipment_returned_at' => $this->faker->dateTimeBetween('-1 year', 'today')->format('Y-m-d'),
                 'book_returned_at' => null,
             ];
         });
@@ -79,8 +81,8 @@ class RentalFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'book_returned_at' => $this->faker->dateTimeBetween('-1 week', '+3 months')->format('Y-m-d'),
-                'equipment_returned_at' => $this->faker->dateTimeBetween('-1 week', '+3 months')->format('Y-m-d'),
+                'book_returned_at' => $this->faker->dateTimeBetween('-1 year', 'today')->format('Y-m-d'),
+                'equipment_returned_at' => $this->faker->dateTimeBetween('-1 year', 'today')->format('Y-m-d'),
             ];
         });
     }
