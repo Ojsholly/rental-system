@@ -7,7 +7,6 @@ use App\Services\Rental\RentalService;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Throwable;
 
@@ -16,8 +15,8 @@ class RentalStatsController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param Request $request
-     * @param RentalService $rentalService
+     * @param  Request  $request
+     * @param  RentalService  $rentalService
      * @return JsonResponse
      */
     public function __invoke(Request $request, RentalService $rentalService): JsonResponse
