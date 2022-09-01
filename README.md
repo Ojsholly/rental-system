@@ -6,7 +6,7 @@ The project is a collection of endpoints for a Book and Equipment Rental System.
 
 ## Project Setup
 
-### Cloning the Bitbucket Repository.
+### Cloning the GitHub Repository.
 
 Clone the repository to your local machine via https by running the terminal command below.
 
