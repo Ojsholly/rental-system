@@ -1,5 +1,5 @@
 name: CI
-on: [push, merge, fork]
+on: [push, pull_request, fork]
 jobs:
   phpunit:
     runs-on: ubuntu-latest
